@@ -1,0 +1,33 @@
+{
+  "name": "Preenchedor de formulários PT-BR",
+  "description": "Preenchedor de formulários PT-BR",
+  "version": "0.0.0",
+  "manifest_version": 3,
+  "action": {},
+  "permissions": ["activeTab", "scripting"],
+  "background": {
+    "service_worker": "background.js"
+  },
+  "content_scripts": [
+    {
+      "matches": ["http://*/*", "https://*/*"],
+      "js": [
+        "data/companyNames.js",
+        "data/femaleNames.js",
+        "data/maleNames.js",
+        "data/states.js",
+        "data/surnames.js",
+        "random/companyName.js",
+        "random/cpf.js",
+        "random/email.js",
+        "random/index.js",
+        "random/name.js",
+        "random/phone.js",
+        "utils/generateChecksum.js",
+        "utils/generateRandomNumber.js",
+        "utils/onlyNumbers.js",
+        "utils/randomArrayElement.js"
+      ]
+    }
+  ]
+}
