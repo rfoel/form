@@ -3,8 +3,11 @@ importScripts('random/index.js')
 function fillForm() {
   const checkBoxes = document.querySelectorAll('input[type="checkbox"]')
   const emailInputs = document.querySelectorAll('input[type="email"]')
+  const selectInputs = document.querySelectorAll('select')
   const telInputs = document.querySelectorAll('input[type="tel"]')
-  const textInputs = document.querySelectorAll('input:not([type])')
+  const textInputs = document.querySelectorAll(
+    'input[type="text"], input:not([type])',
+  )
 
   checkBoxes.forEach(input => {
     input.click()
@@ -33,12 +36,23 @@ function fillForm() {
     input.dispatchEvent(new Event('input', { bubbles: true }))
   })
 
+  selectInputs.forEach(input => {
+    const options = Array.from(input.options)
+      .map(option => option.value)
+      .filter(Boolean)
+
+    input.value = randomArrayElement(options)
+
+    input.dispatchEvent(new Event('input', { bubbles: true }))
+  })
+
   textInputs.forEach(input => {
     const textInputTypes = [input.id, input.name]
 
     const firstName = ['name', 'firstName']
     const lastName = ['lastName', 'surname', 'familyName']
     const fullName = ['fullName']
+    const externalPartnerId = ['externalPartnerId']
 
     if (
       textInputTypes.some(textInputType => firstName.includes(textInputType))
@@ -52,6 +66,12 @@ function fillForm() {
       textInputTypes.some(textInputType => fullName.includes(textInputType))
     ) {
       input.value = randomFullName()
+    } else if (
+      textInputTypes.some(textInputType =>
+        externalPartnerId.includes(textInputType),
+      )
+    ) {
+      input.value = randomCPF()
     }
 
     const companyName = ['companyName', 'businessName', 'organizationName']
