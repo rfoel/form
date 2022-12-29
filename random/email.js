@@ -5,6 +5,10 @@ importScripts(
 )
 
 function randomEmail() {
+  return `${randomUsername()}@email.com`
+}
+
+function randomUsername() {
   return `${randomArrayElement([
     randomName()
       .normalize('NFD')
@@ -15,7 +19,7 @@ function randomEmail() {
       .replace(/[\u0300-\u036f]/g, '')
       .toLowerCase(),
   ]).replace(
-    ' ',
+    /\s/g,
     randomArrayElement(['.', '-', '_', '']),
-  )}${generateRandomNumber(4)}@fakemail.com`
+  )}${generateRandomNumber(4)}`
 }
